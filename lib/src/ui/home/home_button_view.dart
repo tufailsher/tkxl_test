@@ -56,10 +56,10 @@ class HomeButtonView extends StatelessWidget {
                         ..translate(-17.0, -27.0),
                       child: SvgPicture.asset(
                         icon,
-                        colorFilter: ColorFilter.mode(
-                          Colors.white.withOpacity(opacity),
-                          BlendMode.srcIn,
-                        ),
+                        // colorFilter: ColorFilter.mode(
+                        //   Colors.white.withOpacity(opacity),
+                        //   BlendMode.srcIn,
+                        // ),
                       ),
                     ),
                   ),
@@ -123,10 +123,10 @@ class HomeButtonView extends StatelessWidget {
                               ),
                               SvgPicture.asset(
                                 AppAssets.icPlayCircleFilled,
-                                colorFilter: ColorFilter.mode(
-                                  Colors.white,
-                                  BlendMode.srcIn,
-                                ),
+                                // colorFilter: ColorFilter.mode(
+                                //   Colors.white,
+                                //   BlendMode.srcIn,
+                                // ),
                                 height: 39,
                                 width: 39,
                               )

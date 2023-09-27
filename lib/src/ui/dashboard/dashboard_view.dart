@@ -1,9 +1,11 @@
 import 'dart:io';
 
+import 'package:bottom_indicator_bar_svg/bottom_indicator_bar_svg.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_application_1/src/ui/dashboard/search_ships.dart';
-import 'package:flutter_application_1/src/ui/home/home_page.dart';
+import 'package:flutter_application_1/src/ui/dashboard/calculate_view.dart';
+import 'package:flutter_application_1/src/ui/dashboard/shipment_history_view.dart';
+import 'package:flutter_application_1/src/ui/home/home_page_view.dart';
 
 class DashboardView extends StatefulWidget {
   @override
@@ -11,18 +13,15 @@ class DashboardView extends StatefulWidget {
 }
 
 class _DashboardViewState extends State<DashboardView>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-  late Animation<Offset> _offsetLeftEnter;
-  late Animation<Offset> _offsetRightEnter;
-  late bool isHomePageOpen;
+     {
+
   int _selectedIndex = 0;
   static const TextStyle optionStyle =
   TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static  List<Widget> _widgetOptions = <Widget>[
-    Homepage(),
-   SearchShipsPage(),
-
+    HomepageView(),
+   CalculateView(),
+    ShipmentHistoryView(),
     Text(
       'Index 2: School',
       style: optionStyle,
@@ -34,31 +33,9 @@ class _DashboardViewState extends State<DashboardView>
       _selectedIndex = index;
     });
   }
-  @override
-  void initState() {
-    super.initState();
-    isHomePageOpen = false;
-    _controller = AnimationController(
-      duration: Duration(milliseconds: 700),
-      vsync: this,
-    );
-    _offsetLeftEnter = Tween<Offset>(
-      begin: Offset(2.0, 0.0),
-      end: Offset.zero,
-    ).animate(_controller);
 
-    _offsetRightEnter = Tween<Offset>(
-      begin: Offset(-2.0, 0.0),
-      end: Offset.zero,
-    ).animate(_controller);
-    _controller.forward();
-  }
 
-  @override
-  void dispose() {
-    super.dispose();
-    _controller.dispose();
-  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -69,33 +46,47 @@ class _DashboardViewState extends State<DashboardView>
       ),
       child: Scaffold(
         appBar: AppBar(
-          foregroundColor: Colors.deepPurpleAccent,
+          foregroundColor: Colors.deepPurple[600]!,
           toolbarHeight: 0,
           elevation: 0,
-          backgroundColor: Colors.deepPurpleAccent,
+          backgroundColor: Colors.deepPurple[600]!,
         ),
         body:_widgetOptions.elementAt(_selectedIndex),
-        bottomNavigationBar: BottomNavigationBar(
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Home',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.business),
-              label: 'Business',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.school),
-              label: 'School',
-            ),
-          ],
+        bottomNavigationBar: BottomIndicatorBar(
           currentIndex: _selectedIndex,
-          selectedItemColor: Colors.amber[800],
           onTap: _onItemTapped,
-          // backgroundColor: Colors.red,
+          items: <BottomIndicatorNavigationBarItem>[
+            BottomIndicatorNavigationBarItem(icon: Icons.home_outlined, label: Text('Home')),
+            BottomIndicatorNavigationBarItem(icon: Icons.calculate_outlined, label: 'Calculate'),
+            BottomIndicatorNavigationBarItem(icon: Icons.restore,label: 'Shipment'),
+            BottomIndicatorNavigationBarItem(icon: Icons.person_2_outlined,label: 'Profile')
+          ],
+          iconSize: 25.0,
+          indicatorHeight: 4, // Set to 0 to hide the indicator bar
+          activeColor: Colors.deepPurple[800]!,
+          inactiveColor: Colors.grey,
+          indicatorColor: Colors.deepPurple[800]!,
+          backgroundColor: Colors.white,
         ),
       ),
     );
+  }
+}
+class TopIndicator extends Decoration {
+  @override
+  BoxPainter createBoxPainter([VoidCallback? onChanged]) {
+    return _TopIndicatorBox();
+  }
+}
+
+class _TopIndicatorBox extends BoxPainter {
+  @override
+  void paint(Canvas canvas, Offset offset, ImageConfiguration cfg) {
+    Paint _paint = Paint()
+      ..color = Colors.deepPurpleAccent
+      ..strokeWidth = 5
+      ..isAntiAlias = true;
+
+    canvas.drawLine(offset, Offset(cfg.size!.width + offset.dx, 0), _paint);
   }
 }

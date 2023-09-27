@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/src/core/app_assets.dart';
 
 class SearchShipsPage extends StatelessWidget {
   final List<SearchShips> searchingList = [
@@ -37,10 +38,11 @@ class _ShipListState extends State<ShipList> {
 
   void filterShips(String query) {
     setState(() {
-      filteredList = widget.searchingList
-          .where(
-              (ship) => ship.name.toLowerCase().contains(query.toLowerCase()))
-          .toList();
+      filteredList = widget.searchingList.where((ship) {
+        final nameContainsQuery = ship.name.toLowerCase().contains(query.toLowerCase());
+        final numberContainsQuery = ship.number.toLowerCase().contains(query.toLowerCase());
+        return nameContainsQuery || numberContainsQuery;
+      }).toList();
     });
   }
 
@@ -54,7 +56,7 @@ class _ShipListState extends State<ShipList> {
         ),
         Expanded(
           child: Container(
-            padding: EdgeInsets.all(20),
+            padding: EdgeInsets.only(left: 20),
             margin: EdgeInsets.all(20),
             decoration: BoxDecoration(
                 color: Colors.white, borderRadius: BorderRadius.circular(20)),
@@ -63,16 +65,49 @@ class _ShipListState extends State<ShipList> {
               itemCount: filteredList.length,
               itemBuilder: (context, index) {
                 return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(filteredList[index].name),
-                      Text(
-                          'Number: ${filteredList[index].number}\nStatus: ${filteredList[index].status}'),
-                      Divider(
-                        endIndent: 20,
-                        indent: 20,
-                      )
-                    ]);
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding:  EdgeInsets.only(bottom: 8.0,top: index==0?0:8),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        // mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          CircleAvatar(
+                            backgroundColor: Colors.indigo,
+                            radius: 23,
+                            child: Icon(
+                              Icons.book,
+                              color: Colors.white,
+                            ),
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Column(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              // SizedBox(height: 20,),
+                              Text(
+                                filteredList[index].name,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleSmall!
+                                    .copyWith(fontSize: 16),
+                              ),
+                              SizedBox(height: 5,),
+                              Text('Number: ${filteredList[index].number}',style: Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 14),),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    Divider()
+                  ],
+                );
               },
             ),
           ),
@@ -92,7 +127,7 @@ class AppBarWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.only(top: 20),
-      color: Colors.deepPurpleAccent,
+      color: Colors.deepPurple[600]!,
       child: Column(
         children: [
           Padding(
@@ -112,6 +147,7 @@ class AppBarWidget extends StatelessWidget {
                     controller: controller,
                     onChanged: onChanged,
                     decoration: InputDecoration(
+                      isDense: true,
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(30)),
                       fillColor: Colors.white,
@@ -123,8 +159,8 @@ class AppBarWidget extends StatelessWidget {
                         child: CircleAvatar(
                           radius: 20,
                           backgroundColor: Colors.yellow[800],
-                          child: Icon(
-                            Icons.qr_code_2,
+                          child: ImageIcon(
+                            AssetImage(AppAssets.scanner),
                             size: 20,
                             color: Colors.white,
                           ),

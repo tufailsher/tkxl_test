@@ -185,14 +185,14 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
                                 widget.tuple2.item1.icon,
                                 height: 200,
                                 width: 200,
-                                colorFilter: ColorFilter.mode(
-                                  widget.tuple2.item1.fillIconColor.withOpacity(
-                                      Theme.of(context).brightness ==
-                                              Brightness.light
-                                          ? 0.08
-                                          : 0.24),
-                                  BlendMode.srcIn,
-                                ),
+                                // colorFilter: ColorFilter.mode(
+                                //   widget.tuple2.item1.fillIconColor.withOpacity(
+                                //       Theme.of(context).brightness ==
+                                //               Brightness.light
+                                //           ? 0.08
+                                //           : 0.24),
+                                //   BlendMode.srcIn,
+                                // ),
                               ),
                             ),
                             Positioned(
@@ -202,15 +202,15 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
                                 widget.tuple2.item1.outlineIcon,
                                 height: 175,
                                 width: 175,
-                                colorFilter: ColorFilter.mode(
-                                  widget.tuple2.item1.outlineIconColor
-                                      .withOpacity(
-                                          Theme.of(context).brightness ==
-                                                  Brightness.light
-                                              ? 0.16
-                                              : 0.80),
-                                  BlendMode.srcIn,
-                                ),
+                                // colorFilter: ColorFilter.mode(
+                                //   widget.tuple2.item1.outlineIconColor
+                                //       .withOpacity(
+                                //           Theme.of(context).brightness ==
+                                //                   Brightness.light
+                                //               ? 0.16
+                                //               : 0.80),
+                                //   BlendMode.srcIn,
+                                // ),
                                 // color: widget.dashboard.colorTuple.item1,
                               ),
                             ),

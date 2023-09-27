@@ -25,6 +25,8 @@ class AppAssets {
       "assets/images/ic_play_circle_filled.svg";
   static const String icHomeBg = "assets/images/ic_home_bg.svg";
   static const String icRoot = "assets/images/ic_root.svg";
+  static const String boxIcon = "assets/images/box_icon.png";
+  static const String colorBox = "assets/images/color_box.png";
 
   static const String icCalculator = "assets/images/ic_calculator.svg";
   static const String icGuessTheSign = "assets/images/ic_guess_the_sign.svg";
@@ -45,4 +47,5 @@ class AppAssets {
   static const String bgSmallButton = "assets/images/bg_small_button.png";
   static const String bgSmallDarkButton = "assets/images/bg_small_button_dark.png";
   static const String mindTree = "assets/images/img.png";
+  static const String scanner = "assets/images/scanner.png";
 }

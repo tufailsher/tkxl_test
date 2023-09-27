@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
         theme: AppTheme.theme,
         darkTheme: AppTheme.theme,
         themeMode: provider.themeMode,
-        initialRoute: KeyUtil.splash,
+        initialRoute: KeyUtil.dashboard,
         routes: appRoutes,
         // home: DashboardView(),
 
